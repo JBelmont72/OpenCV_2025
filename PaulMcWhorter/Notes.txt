@@ -1,0 +1,31 @@
+ PW 26 has a great working hand Id program
+THe first hands mediapipes are PW_18, I moved the three to PaulMcworter/Mediapipe folder 
+ Sockets
+ Zuni client Zuni client socket
+1- basic client TCP with fixed paylload size
+2- basic client UDP with fixed paylload size
+3- client TCP with adjusted payload
+
+HANDEDNESS https://github.com/google-ai-edge/mediapipe/issues/1374
+PW_20
+help(mp.solutions.hands.Hands) this command gives all the arguemnents and cover handedness,etc
+
+
+path to the handLandmarker module loaded here /Users/judsonbelmont/Documents/SharedFolders/OpenCV/OpenCV_3/.venv/lib/python3.9/site-packages/mediapipe/tasks/python/vision/hand_landmarker.py
+
+
+
+I had to go here to update the mp.pose for PW_21_GestureRecog.py
+https://github.com/google-ai-edge/mediapipe/blob/master/docs/solutions/pose.md
+updated PW_22 -works great
+I made these chanages in mediapipe and protobuf 22 Jan 2025
+Installing collected packages: protobuf, mediapipe
+  Attempting uninstall: protobuf
+    Found existing installation: protobuf 3.20.3
+    Uninstalling protobuf-3.20.3:
+      Successfully uninstalled protobuf-3.20.3
+  Attempting uninstall: mediapipe
+    Found existing installation: mediapipe 0.10.9
+    Uninstalling mediapipe-0.10.9:
+      Successfully uninstalled mediapipe-0.10.9
+Successfully installed mediapipe-0.10.14 protobuf-4.25.3

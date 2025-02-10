@@ -1,0 +1,102 @@
+judsonbelmont@Judsons-MacBook-Air OpenCV_3 % git restore -- .ve
+nv/
+COMMAND + , oPENS SETTINGS
+Notes from Dave gray
+--select default profile  I use zsh
+-configure terminal settings:
+commands in terminal:
+    clear
+    git --version
+    git config --local or global 
+    git config --global user.name 'name'
+    git config --global user.email 'email.com'
+
+    to check values $git config user.name   mine is JBelmont72
+            $git config user.email
+
+judsonbelmont@Judsons-MacBook-Air OpenCV_3 % git config user.email
+130615405+JBelmont72@users.noreply.github.com
+
+
+    git config --global init.defaultBranch main
+    renames from master to main
+    git help config
+    git help fetch
+------
+    file to preferences to setting  or command + ,
+    **/.git  i deleted that from the exclude
+    Options below for git ignore (ask about changing that)
+Best way to open up a repository
+to clone a project from git, go to the repository on git and select the url under 'code'
+then in the terminalenter-  git clone https://github.com/gitdagray/gitdagray.git
+this copied it all to vs code
+
+important  if you clone a directory from somewhere, the .git file will come with it. So once in the folder on VScode or terminal, can remove it recursively with 
+        rm -rf .git
+
+        !! git init created the .git file in the folder
+
+        git status  gives the status of the files and how to add
+        using git add name
+        create a .gitignore  can add to it with *.venv/ 
+
+    judsonbelmont@Judsons-MacBook-Air OpenCV_3 % git restore -- .ve
+nv/    this command got rid of the .venv files i did not want to commit
+
+git push origin main to push to main repository
+
+
+git config credential.helper cache
+git config credential.helper 'cache --timeout= 7200
+or for any folder use global
+git config --global credential.helper 'cache --timeout= 7200
+
+on github create a repository, 
+''or push an existing repository from the command line" on github
+copy and paste in the three lines. 
+git rmote add origin  http url
+  onlhy use the -u for the first push
+This is the message I get,  that I can easily work around ,  after I do the local commit, git desktop gives the option to push the local commit to desktop and then it goes directly to github
+judsonbelmont@Judsons-MacBook-Air OpenCV_3 % git add *.py
+The following paths are ignored by one of your .gitignore files:
+CV_17_MorphTransform.py
+CV_18_SmoothingImage.py
+hint: Use -f if you really want to add them.
+hint: Turn this message off by running
+hint: "git config advice.addIgnoredFile false"
+judsonbelmont@Judsons-MacBook-Air OpenCV_3 % git add -f *.py
+judsonbelmont@Judsons-MacBook-Air OpenCV_3 % git status -s
+A  CV_17_MorphTransform.py
+A  CV_18_SmoothingImage.py
+judsonbelmont@Judsons-MacBook-Air OpenCV_3 % git commit -m 'add
+.py files 17 and 18'
+[main 03c4901] add.py files 17 and 18
+ 2 files changed, 82 insertions(+)
+ create mode 100644 CV_17_MorphTransform.py
+ create mode 100644 CV_18_SmoothingImage.py
+judsonbelmont@Judsons-MacBook-Air OpenCV_3 % 
+
+if I use finder then I have to use 
+judsonbelmont@Judsons-MacBook-Air OpenCV_3 % git restore images/.DS_Store
+to get rid of the .DS_Store file from being staged
+----
+to add images inside the images folder could paste the path or use:
+.venv) judsonbelmont@Judsons-MacBook-Air OpenCV_3 % git add -f images/*
+(.venv) judsonbelmont@Judsons-MacBook-Air OpenCV_3 % git status
+
+
+----
+https://www.freecodecamp.org/news/git-push-local-branch-to-remote-how-to-publish-a-new-branch-in-git/
+
+How to Push the Main Branch to Remote
+If you want to push the main branch to remote, it’s possible you’re pushing for the first time. Before you attempt to push to remote, make sure you’ve executed these commands:
+
+git init for initializing a local repository
+git add . to add all your files that the local repository
+git commit -m ‘commit message’ to save the changes you made to those files
+To push the main repo, you first have to add the remote server to Git by running git remote add <url>.
+
+To confirm the remote has been added, run git remote -v:
+
+To finally push the repo, run git push -u origin <branch-name>
+(“main” is the name of that branch for me). It could be master or Main for you. Initially, it was “master”, so I ran git branch -M main to change it.
