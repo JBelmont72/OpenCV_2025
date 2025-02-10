@@ -10,7 +10,7 @@ DID not WORK!
 
 
 import cv2
-cap = cv2.VideoCapture(0)
+cap = cv2.VideoCapture(1)
 fourcc = cv2.VideoWriter_fourcc(*'XVID')
 w = int(cap.get(cv2.CAP_PROP_FRAME_WIDTH))
 h = int(cap.get(cv2.CAP_PROP_FRAME_HEIGHT))

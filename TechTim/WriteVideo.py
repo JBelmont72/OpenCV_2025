@@ -1,3 +1,33 @@
+'''
+curiious   I start the video recording with++   'avi': cv2.VideoWriter_fourcc(*'XVID'),
+and retrun the video recrdong as   ++   return VIDEO_TYPE['avi']
+
+but the suffix in the recorded file is .mp4
+
+
+'''
+# import cv2
+# cap = cv2.VideoCapture(1)
+# # fourcc = cv2.VideoWriter_fourcc(*'XVID')
+# fourcc = cv2.VideoWriter_fourcc(*'MP4V')
+# w = int(cap.get(cv2.CAP_PROP_FRAME_WIDTH))
+# h = int(cap.get(cv2.CAP_PROP_FRAME_HEIGHT))
+# out = cv2.VideoWriter('output.mp4', fourcc, 20.0, (w,h))
+
+# while(cap.isOpened()):
+#     ret, frame = cap.read()
+#     if ret:
+#         out.write(cv2.cvtColor(frame, cv2.COLOR_BGR2RGB))
+#         if cv2.waitKey(1) & 0xFF == ord('q'):
+#             break
+#     else:
+#         break
+# cap.release()
+# out.release()
+# cv2.destroyAllWindows()
+
+# to record a video in opencv
+
 ''' CV_4_MP4_2.py 'coding for entrepreneurs'
 
 THIS WORKS 
@@ -44,8 +74,8 @@ def get_dims(cap, res='1080p'):
 # Video Encoding, might require additional installs
 # Types of Codes: http://www.fourcc.org/codecs.php
 VIDEO_TYPE = {
-    'avi': cv2.VideoWriter_fourcc(*'XVID'),    ### 8 Feb both work fine
-    'avi': cv2.VideoWriter_fourcc(*'avc1'),
+    'avi': cv2.VideoWriter_fourcc(*'XVID'),     ## 8 Feb 2025 *'XVID'  and 'AVC1 '  both work fine choose either
+    'avi': cv2.VideoWriter_fourcc(*'AVC1'),
     #'mp4': cv2.VideoWriter_fourcc(*'H264'),
     # 'mp4': cv2.VideoWriter_fourcc(*'XVID'),
 }
