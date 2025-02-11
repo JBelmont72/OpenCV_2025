@@ -14,13 +14,17 @@ cap.set(3,1080)
 cap.set(cv2.CAP_PROP_FPS,30)
 cap.set(cv2.CAP_PROP_FOURCC,cv2.VideoWriter_fourcc(*'MJPG'))
 
-filename = '10fpsvideo.mp4'
+## I will change this to try to change hte filename
+filename = 'video.mp4'
+# filename = '10fpsvideo.mp4'
+
 framespersecond = 10.0
 res = '480p'
 # his from top of blog
 # filename = 'video.avi'
 # frames_per_second = 24.0
 # res = '720p'
+# res='1080'
 
 # Set resolution for the video capture
 # Function adapted from https://kirr.co/0l6qmh
@@ -39,7 +43,7 @@ STD_DIMENSIONS =  {
 
 # grab resolution dimensions and set video capture to it.
 def get_dims(cap, res='1080p'):
-    width, height = STD_DIMENSIONS["480p"]
+    width, height = STD_DIMENSIONS["720p"]
     if res in STD_DIMENSIONS:
         width,height = STD_DIMENSIONS[res]
     ## change the current caputre device
@@ -62,26 +66,28 @@ def get_video_type(filename):
       print(ext)
       return  VIDEO_TYPE[ext]
     return VIDEO_TYPE['avi']
+## by puttoing this object here first, I can put it in a while loop to avoid error for being undeclared?undefined
+# out = cv2.VideoWriter(filename, get_video_type(filename), 25, get_dims(cap, res))
 
-
-out = cv2.VideoWriter(filename, get_video_type(filename), 25, get_dims(cap, res))
-
-
-
-
-
-print(datetime.date(2025,1,8))
 face_cascade=cv2.CascadeClassifier("haar/haarcascade_frontalface_default.xml")
 face_cascade2=cv2.CascadeClassifier("haar/haarcascade_profileface.xml")
 # face_cascade2=cv2.CascadeClassifier("haar/haarcascade_frontalface_alt.xml")
 body_cascade=cv2.CascadeClassifier("haar/haarcascade_fullbody.xml")
-recording =True
+detection =False
+detection_stopped_timer= None
+timer_started = False
+### as soon as detection occurs we want to start a timer, and want to record for a short time after the face leaves the frame.
+SECONDS_TO_RECORD_AFTER_DETECTION = 5
+
+
+
 # ## frameSize of recording has to be same size of the cam frame
-# frame_size =(int(cap.get(3)),int(cap.get(4)))
+frame_size =(int(cap.get(3)),int(cap.get(4)))
 # ## to save in mpg4
-# fourcc=cv2.VideoWriter_fourcc(*'mpv4')
+fourcc=cv2.VideoWriter_fourcc(*'mpv4')
 # # fourcc=cv2.VideoWriter_fourcc(*'MJPG')
-# out= cv2.VideoWriter('video.mpv4',fourcc,20,frameSize=frame_size)
+# out= cv2.VideoWriter('1video.mpv4',fourcc,20,frameSize=frame_size)
+
 
 while True:
     ret,frame = cap.read()
@@ -102,9 +108,27 @@ while True:
     #     cv2.rectangle(frame,(x,y),(int(x+width),int(y+height)),(255,0,0),3)
     
     if len(faces) + len(faces2) +len(bodies)> 0:
-        recording =True
-        
-    
+        if detection == True:
+            timer_started=False
+        else:
+            detection = True    # if no
+            current_time=datetime.datetime.now().strftime('%d-%m-%Y-%H-%M-%S')
+            print(current_time)
+            out = cv2.VideoWriter(f'{current_time}.mp4', get_video_type(filename), 25, get_dims(cap, res))
+            print('Start Recording')
+            
+    elif detection:
+        if timer_started:
+            if time.time() - detection_stopped_timer >= SECONDS_TO_RECORD_AFTER_DETECTION:
+                detection= False
+                timer_started =False
+                out.release()
+                print("Stop Recording")
+ 
+        else:
+            timer_started = True
+            detection_stopped_timer = time.time()
+    if detection:   
         out.write(frame)
     cv2.imshow('Camera',frame)
     if cv2.waitKey(1)== 27:

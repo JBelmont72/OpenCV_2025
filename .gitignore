@@ -9,7 +9,8 @@
 .DS_Store
 *.DS_Store
 **.DS_Store
-
+TechTim/Network-Game-Tutorial/.git
+TechTim/Network-Game-Tutorial/__pycache__
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
