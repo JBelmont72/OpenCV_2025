@@ -33,8 +33,9 @@ while True:     #if true then the first arguement (ret) is true and the frame is
     image = np.zeros([height,width,3],np.uint8)
     for deg in range(0,360,1):        
         rad = (deg/360) *2*math.pi
-        y = int(.65*r * math.sin(3*rad+phase)+height/2 )
-        x = int(r * math.cos(2*rad)+width/2 )
+        y = int(.65*r * math.sin(1*rad+phase)+height/2 )
+        # y = int(.65*r * math.sin(3*rad+phase)+height/2 )
+        x = int(r * math.cos(65.25*rad)+width/2 )
         image7 =cv2.circle(image,(x,y),4,color[i],-1)
         # image7 =cv2.circle(image,(x,y),5,(125,125,0),-1)
     phase = phase + 1*2*math.pi /360       

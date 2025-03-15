@@ -286,7 +286,7 @@ while True:
     cv2.imshow('My Mask', myMaskSmall)
     cv2.moveWindow('My Mask',width,0)
     cv2.imshow('my WEBcam',frame)
-    cv2.moveWindow('my WEBcam',0,240)
+    # cv2.moveWindow('my WEBcam',0,240)
     cv2.moveWindow('my WEBcam',xPos,yPos)
     if cv2.waitKey(1) & 0xff ==ord('q'):
         break
