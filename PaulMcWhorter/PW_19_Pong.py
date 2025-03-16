@@ -20,6 +20,8 @@
 # res = [(a, b) for a, b in zip(l1, l2) if 'left' in a]
 # print(res)
 ### 2d optimaization to try to get faster action
+###   // is floor or integer division same as import math
+####                                          math.floor(15 / 4)
 import cv2
 import sys
 import mediapipe as mp
@@ -52,8 +54,8 @@ findHands = mpHands(2)
 paddleWidth, paddleHeight = 25, 125
 paddleColor = (0, 255, 0)
 
-xDelta, yDelta = 12, 15
-speedIncrement = 1
+xDelta, yDelta = 12, 10
+speedIncrement = 2
 
 LeftPlayer, RightPlayer = 0, 0
 x_position, y_position = width // 2, height // 2
@@ -83,15 +85,18 @@ try:
         
         if y_position - ballRad <= 0 or y_position + ballRad >= height:
             yDelta *= -1
+### here at the far right, the 'left paddle'[8][1] and is within 1/2 paddleheigth < or > y_position for conditon to be true
         if x_position - ballRad <= paddleWidth and leftPaddle - paddleHeight // 2 < y_position < leftPaddle + paddleHeight // 2:
             xDelta *= -1
         if x_position + ballRad >= width - paddleWidth and rightPaddle - paddleHeight // 2 < y_position < rightPaddle + paddleHeight // 2:
             xDelta *= -1
         
-        # Scoring
+        # Scoring this happpens if the conditions of the previous 'ball movement' section are not already satisfied!!
         if x_position - ballRad <= 0:
             RightPlayer += 1
             x_position, y_position = width // 2, height // 2
+## this list coprehension:  if xDelta is positive, then add the speed increment 
+##  if the xDelta is negative then add the negative of speedincrement. (otherwise, would cancel out the xDelta to a unpredictable degree!!!)           
             xDelta += speedIncrement * (1 if xDelta > 0 else -1)
             yDelta += speedIncrement * (1 if yDelta > 0 else -1)
             if RightPlayer == 3:
@@ -102,6 +107,8 @@ try:
         if x_position + ballRad >= width:
             LeftPlayer += 1
             x_position, y_position = width // 2, height // 2
+            ## does not work, it erratic on result, if xDepta is negative, speed increment cancels it out to a degree: 
+            # xDelta += (-1)* xDelta + speedIncrement
             xDelta += speedIncrement * (1 if xDelta > 0 else -1)
             yDelta += speedIncrement * (1 if yDelta > 0 else -1)
             if LeftPlayer == 3:
