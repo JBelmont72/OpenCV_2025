@@ -48,6 +48,7 @@ while True:
     frame=cv2.resize(frame,(width,height))
     frame=cv2.flip(frame,1)
     handData, handsType=findHands.Marks(frame)
+    print(handData)
     for hand,handType in zip(handData,handsType):
         # if handType=='Right':
         #     handColor=(255,0,0)

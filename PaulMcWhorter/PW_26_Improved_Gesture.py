@@ -17,8 +17,42 @@ import numpy as np
  
 class mpHands:
     import mediapipe as mp
-    def __init__(self,maxHands= 2,tol1=.5,tol2=.5):
-        self.hands=self.mp.solutions.hands.Hands(  False,max_num_hands = 2, min_detection_confidence = .5, min_tracking_confidence=0.5)
+    def __init__(self,maxHands=2,tol1=.5,tol2=.5):
+        self.width=1280
+        self.height=720
+        self.hands=self.mp.solutions.hands.Hands(static_image_mode=False, max_num_hands=2, min_detection_confidence=0.5, 
+     min_tracking_confidence=0.5)
+ 
+    
+    # def __init__(self,maxHands= 2,tol1=.5,tol2=.5):
+    #     self.hands=self.mp.solutions.hands.Hands(  False,max_num_hands = 2, min_detection_confidence = .5, min_tracking_confidence=0.5)
+    
+    # def Marks(self,frame,draw=False):
+    #     myHands=[]
+    #     handsType=[]
+    #     frameRGB=cv2.cvtColor(frame,cv2.COLOR_BGR2RGB)
+    #     self.results=self.hands.process(frameRGB)
+    #     if self.results.multi_hand_landmarks != None:
+    #         #print(results.multi_handedness)
+    #         for hand in self.results.multi_handedness:
+    #             #print(hand)
+    #             #print(hand.classification)
+    #             #print(hand.classification[0])
+    #             handType=hand.classification[0].label
+    #             handsType.append(handType)
+    #         for handLandMarks in self.results.multi_hand_landmarks:
+                
+    #             myHand=[]
+    #             for landMark in handLandMarks.landmark:
+    #                 myHand.append((int(landMark.x*self.width),int(landMark.y*self.height)))
+    #             myHands.append(myHand)
+    #             if draw:
+    #                 self.mpDraw.draw_landmarks(frame,handLandMarks,self.mp.solutions.hands.HAND_CONNECTIONS)
+    #     return frame,myHands,handsType
+    
+    
+        
+        
     def Marks(self,frame):
         myHands=[]
         frameRGB=  cv2.cvtColor ( frame, cv2.COLOR_BGR2RGB)
@@ -65,7 +99,7 @@ def findGesture( unknownGesture,knownGestures,keyPoints,gestNames,tol):
  
 width=1280
 height=720
-cam=cv2.VideoCapture(0)
+cam=cv2.VideoCapture(1)
 cam.set(cv2.CAP_PROP_FRAME_WIDTH, width)
 cam.set( cv2.CAP_PROP_FRAME_HEIGHT,height)
 cam.set(cv2.CAP_PROP_FPS, 30)
@@ -91,12 +125,14 @@ print( gestNames)
 while True:
     ignore,  frame = cam.read()
     frame=cv2.resize(frame,( width,height))
+    # frame,handData,handsType = findHands.Marks(frame)
     handData=findHands.Marks(frame)
     if train==True:
         if handData!=[]:
             print('Please Show Gesture ',  gestNames [ trainCnt ],': Press t when Ready')
             if cv2.waitKey(1) & 0xff== ord('t'):
                 knownGesture=findDistances(handData[0])
+                print(knownGesture)
                 knownGestures.append(knownGesture)
                 trainCnt=  trainCnt+1
                 if  trainCnt== numGest:

@@ -17,7 +17,13 @@ arduinoData = serial.Serial('COM3',115200)
 class mpHands:
     import mediapipe as mp
     def __init__(self,maxHands=2,tol1=.5,tol2=.5):
-        self.hands=self.mp.solutions.hands.Hands(False,maxHands,tol1,tol2)
+        self.width=1280
+        self.height=720
+        self.hands=self.mp.solutions.hands.Hands(static_image_mode=False, max_num_hands=2, min_detection_confidence=0.5, 
+     min_tracking_confidence=0.5)
+
+    # def __init__(self,maxHands=2,tol1=.5,tol2=.5):
+    #     self.hands=self.mp.solutions.hands.Hands(False,maxHands,tol1,tol2)
     def Marks(self,frame):
         myHands=[]
         frameRGB=cv2.cvtColor(frame,cv2.COLOR_BGR2RGB)
@@ -63,7 +69,7 @@ def findGesture(unknownGesture,knownGestures,keyPoints,gestNames,tol):
  
 width=1280
 height=720
-cam=cv2.VideoCapture(3,cv2.CAP_DSHOW)
+cam=cv2.VideoCapture(0)
 cam.set(cv2.CAP_PROP_FRAME_WIDTH, width)
 cam.set(cv2.CAP_PROP_FRAME_HEIGHT,height)
 cam.set(cv2.CAP_PROP_FPS, 30)
