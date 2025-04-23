@@ -33,7 +33,7 @@ fontT1 = 1
 
 #**********************************************************
 # use openCV commands to set up program to display video at desired specification
-cam=cv2.VideoCapture(0)
+cam=cv2.VideoCapture(1)
 # cam=cv2.VideoCapture(0,cv2.CAP_DSHOW)
 cam.set(cv2.CAP_PROP_FRAME_WIDTH, width)
 cam.set(cv2.CAP_PROP_FRAME_HEIGHT,height)
@@ -174,7 +174,7 @@ while True:
             cv2.rectangle(frame[y:y+h,x:x+w],(ex,ey),(ex+ew , ey+eh),myRed,2)
 
         REDtEnd=time.time()             # stop the timer that we started at the top of this for loop
-        loopTime = REDtEnd - REDtStart
+        loopTime = REDtEnd - tStart
         REDfps= ((.9 * REDfps) + (.1 * loopTime)) # use a low pass filter to reduce noise in the time calculations
         REDfps= int(REDfps)
 
