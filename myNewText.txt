@@ -1,0 +1,10 @@
+I have modified this
+the CV_  programs are from 'Programming knowledge'
+
+this program works fine for taking movies and open with QUicktime Player
+https://www.youtube.com/watch?v=1eHQIu4r0Bc is a good video
+CV_4_MP4_2.py
+
+www.fourcc.org/codecs.php   video codes by fourcc, compressed formats  that you see displayed when you don't have the right CODEC installed to play a given AVI file
+color picker    https://math.hws.edu/graphicsbook/demos/c2/rgb-hsv.html
+https://colorpicker.me/#ca64b6
